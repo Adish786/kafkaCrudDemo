@@ -14,7 +14,7 @@ When you create, update, or delete a product, a Kafka event is automatically pub
 
 ---
 
-## 🚀 Quick Setup (5 Steps)
+## 🚀 Quick Setup
 
 ### 1. Clone the project
 ```bash
