@@ -46,3 +46,8 @@ logging:
   level:
     com.kafka: DEBUG   # Changed to match your actual package (com.kafka)
     org.springframework.kafka: DEBUG
+
+# Custom Kafka settings
+kafka:
+  replication:
+    factor: 1
