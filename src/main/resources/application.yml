@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: kafka-crud-app
+
+  # Database Configuration (MySQL)
+  datasource:
+    url: jdbc:mysql://localhost:3306/kafka_crud_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: root
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # JPA Configuration
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+
+  # Kafka Configuration
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
+      properties:
+        spring.json.type.mapping: "product:com.kafka.entity.ProductEvent"
+    consumer:
+      group-id: product-consumer-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+        spring.json.type.mapping: "product:com.kafka.entity.ProductEvent"
+    template:
+      default-topic: product-events
+
+# Server Configuration
+server:
+  port: 8080
+
+# Logging
+logging:
+  level:
+    com.kafka: DEBUG   # Changed to match your actual package (com.kafka)
+    org.springframework.kafka: DEBUG
